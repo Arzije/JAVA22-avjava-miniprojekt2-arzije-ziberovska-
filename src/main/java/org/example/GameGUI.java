@@ -107,7 +107,7 @@ public class GameGUI {
      * Provide a hint by highlighting the best move.
      */
     private void provideHint() {
-        Move bestMove = controller.provideHint();
+        MinMaxAlgorithm.Move bestMove = controller.provideHint();
         int bestRow = bestMove.getRow();
         int bestCol = bestMove.getCol();
         buttons[bestRow][bestCol].setBackground(Color.green);
@@ -155,7 +155,7 @@ public class GameGUI {
         private void aiMove() {
             // Delay the AI move to make the game feel more natural
             Timer timer = new Timer(1000, e -> {
-                Move bestMove = controller.aiMove();
+                MinMaxAlgorithm.Move bestMove = controller.aiMove();
                 controller.makeMove(bestMove.getRow(), bestMove.getCol());
                 updateBoard();
                 buttons[bestMove.getRow()][bestMove.getCol()].setBackground(Color.yellow);

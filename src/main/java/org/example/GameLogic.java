@@ -3,19 +3,19 @@ package org.example;
 public class GameLogic {
 
     private Board board; // The game board
-    private GameAI ai; // The AI component for providing hints or AI moves
+    private MinMaxAlgorithm ai; // The AI component for providing hints or AI moves
     private GameSymbol currentPlayer; // Represents the current player's symbol ('X' or 'O')
 
     public GameLogic() {
         this.board = new Board();
+        this.ai = new MinMaxAlgorithm();
         this.currentPlayer = GameSymbol.X;
-        this.ai = new GameAI(board, currentPlayer);
-
     }
 
-    public Move provideHint() {
-        return ai.bestMove();  // Use the AI to provide a hint
+    public MinMaxAlgorithm.Move provideHint() {
+        return ai.minMax(board, currentPlayer);
     }
+
 
     public boolean isValidMove(int row, int col) {
         return board.isValidMove(row, col);
@@ -49,8 +49,8 @@ public class GameLogic {
         return board.getBoardCell(row, col).getSymbol();
     }
 
-    public Move aiMove() {
-        return ai.bestMove();  // Use the AI to make a move
+    public MinMaxAlgorithm.Move aiMove() {
+        return ai.minMax(board, currentPlayer);
     }
 
     public GameSymbol getCurrentPlayer() {

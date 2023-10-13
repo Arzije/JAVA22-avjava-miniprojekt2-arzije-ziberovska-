@@ -5,7 +5,7 @@ import java.util.List;
 
 public class MinMaxAlgorithm {
 
-    public static Move minMax(Board board, GameSymbol currentPlayer) {
+    public Move minMax(Board board, GameSymbol currentPlayer) {
         // Check if X is a winner and return a move with score 1
         if (board.isXWinner()) {
             return new Move(1);
@@ -28,7 +28,7 @@ public class MinMaxAlgorithm {
         return moves.get(bestMoveIndex);
     }
 
-    private static List<Move> evaluateMoves(Board board, GameSymbol currentPlayer) {
+    private List<Move> evaluateMoves(Board board, GameSymbol currentPlayer) {
         List<Move> moves = new ArrayList<>();
 
         // Loop through each cell in the 3x3 grid
@@ -45,7 +45,8 @@ public class MinMaxAlgorithm {
         return moves;
     }
 
-    private static Move evaluateMove(Board board, int row, int col, GameSymbol currentPlayer) {
+
+    private Move evaluateMove(Board board, int row, int col, GameSymbol currentPlayer) {
         Move move = new Move(row, col); // Create a new move
         Board boardCopy = board.copyBoard(); // Copy the board to simulate the move
 
@@ -59,19 +60,21 @@ public class MinMaxAlgorithm {
         return move;
     }
 
-    private static GameSymbol switchPlayer(GameSymbol currentPlayer) {
+
+    private GameSymbol switchPlayer(GameSymbol currentPlayer) {
         return (currentPlayer == GameSymbol.X) ? GameSymbol.O : GameSymbol.X;
     }
 
-    private static int findBestMoveForMax(List<Move> moves) {
+
+    private int findBestMoveForMax(List<Move> moves) {
         return findBestMove(moves, Integer.MIN_VALUE, true);
     }
 
-    private static int findBestMoveForMin(List<Move> moves) {
+    private int findBestMoveForMin(List<Move> moves) {
         return findBestMove(moves, Integer.MAX_VALUE, false);
     }
 
-    private static int findBestMove(List<Move> moves, int initialBestScore, boolean isMax) {
+    private int findBestMove(List<Move> moves, int initialBestScore, boolean isMax) {
         int bestMove = -1; // Initialize to an invalid index
         int bestScore = initialBestScore;
 
@@ -88,5 +91,45 @@ public class MinMaxAlgorithm {
         return bestMove;
     }
 
+    // Inner class to represent a move in the TicTacToe game
+    public class Move {
+        private int row;
+        private int col;
+        private int score;
+
+        public Move(int score) {
+            this.score = score;
+        }
+
+        public Move(int row, int col) {
+            this.row = row;
+            this.col = col;
+        }
+
+        // Getter and Setter methods for the properties
+        public int getRow() {
+            return row;
+        }
+
+        public void setRow(int row) {
+            this.row = row;
+        }
+
+        public int getCol() {
+            return col;
+        }
+
+        public void setCol(int col) {
+            this.col = col;
+        }
+
+        public int getScore() {
+            return score;
+        }
+
+        public void setScore(int score) {
+            this.score = score;
+        }
+    }
 
 }
