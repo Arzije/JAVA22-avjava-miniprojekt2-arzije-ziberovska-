@@ -12,42 +12,42 @@ public class GameGUI {
         private JButton[][] buttons;
 
         public GameGUI() {
-            initializeFrame();
-            initializeGame();
-            addUIComponents();
+            setupMainFrame();
+            setupGameController();
+            setupUIElements();
             frame.setVisible(true);
         }
 
-        private void initializeFrame() {
+        private void setupMainFrame() {
             frame = new JFrame("Tic Tac Toe");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setSize(400, 450);
             frame.setLayout(new BorderLayout());
         }
 
-        private void initializeGame() {
+        private void setupGameController() {
             controller = new GameLogic();
         }
 
-        private void addUIComponents() {
-            addStartOverButton();
-            addBoardPanel();
-            addHintButton();
+        private void setupUIElements() {
+            setupRestartButton();
+            setupGameBoard();
+            setupHelpButton();
         }
 
-        private void addBoardPanel() {
+        private void setupGameBoard() {
             buttons = new JButton[3][3];
             JPanel boardPanel = new JPanel(new GridLayout(3, 3, 10, 10));
             for (int i = 0; i < 3; i++) {
                 for (int j = 0; j < 3; j++) {
-                    buttons[i][j] = createBoardButton(i, j);
+                    buttons[i][j] = generateGameButton(i, j);
                     boardPanel.add(buttons[i][j]);
                 }
             }
             frame.add(boardPanel, BorderLayout.CENTER);
         }
 
-        private JButton createBoardButton(int row, int col) {
+        private JButton generateGameButton(int row, int col) {
             JButton button = new JButton(" ");
             button.setFont(new Font("Arial", Font.BOLD, 40));
             button.setPreferredSize(new Dimension(100, 100));
@@ -55,21 +55,21 @@ public class GameGUI {
             return button;
         }
 
-        private void addStartOverButton() {
+        private void setupRestartButton() {
             JButton restartButton = new JButton("Start Over!");
-            restartButton.addActionListener(e -> restartGame());
+            restartButton.addActionListener(e -> restartMatch());
             frame.add(restartButton, BorderLayout.NORTH);
         }
 
-        private void addHintButton() {
+        private void setupHelpButton() {
             JButton hintButton = new JButton("I would like a hint!");
-            hintButton.addActionListener(e -> provideHint());
+            hintButton.addActionListener(e -> showHint());
             JPanel hintPanel = new JPanel(); // Use default FlowLayout for centering
             hintPanel.add(hintButton);
             frame.add(hintPanel, BorderLayout.SOUTH);
         }
 
-        private void provideHint() {
+        private void showHint() {
             MinMaxAlgorithm.Move bestMove = controller.provideHint();
             int bestRow = bestMove.getRow();
             int bestCol = bestMove.getCol();
@@ -86,45 +86,39 @@ public class GameGUI {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (controller.isValidMove(row, col)) {
-                    controller.makeMove(row, col);
-                    updateBoard();
-                    if (controller.isWinner()) {
-                        PlayerMark previousPlayer = (controller.getCurrentPlayer() == PlayerMark.X) ? PlayerMark.O
-                                : PlayerMark.X;
-                        JOptionPane.showMessageDialog(frame, previousPlayer + " wins!");
-                        disableButtons();
-                        return;
-                    }
-
-                    if (controller.isDraw()) {
-                        JOptionPane.showMessageDialog(frame, "It's a draw!");
-                        return;
-                    }
-
-                    aiMove();
+                processPlayerMove();
+                if (!controller.isWinner() && !controller.isDraw()) {
+                    processAIMove();
                 }
             }
 
-            private void aiMove() {
-                Timer timer = new Timer(1000, e -> {
-                    MinMaxAlgorithm.Move bestMove = controller.aiMove();
-                    controller.makeMove(bestMove.getRow(), bestMove.getCol());
-                    updateBoard();
+            private void processPlayerMove() {
+                if (controller.isValidMove(row, col)) {
+                    controller.makeMove(row, col);
+                    updateGameBoard();
                     if (controller.isWinner()) {
-                        JOptionPane.showMessageDialog(frame,
-                                (controller.getCurrentPlayer() == PlayerMark.X ? PlayerMark.O : PlayerMark.X) + " wins!");
-                        disableButtons();
+                        displayMessage(PlayerMark.O + " wins!");
+                        disableGameButtons();
                     } else if (controller.isDraw()) {
-                        JOptionPane.showMessageDialog(frame, "It's a draw!");
+                        displayMessage("It's a draw!");
                     }
-                });
-                timer.setRepeats(false);
-                timer.start();
+                }
+            }
+            private void processAIMove() {
+                MinMaxAlgorithm.Move bestMove = controller.aiMove();
+                controller.makeMove(bestMove.getRow(), bestMove.getCol());
+                updateGameBoard();
+                if (controller.isWinner()) {
+                    JOptionPane.showMessageDialog(frame,
+                            (controller.getCurrentPlayer() == PlayerMark.X ? PlayerMark.O : PlayerMark.X) + " wins!");
+                    disableGameButtons();
+                } else if (controller.isDraw()) {
+                    JOptionPane.showMessageDialog(frame, "It's a draw!");
+                }
             }
         }
 
-        private void updateBoard() {
+        private void updateGameBoard() {
             for (int i = 0; i < 3; i++) {
                 for (int j = 0; j < 3; j++) {
                     buttons[i][j].setBackground(null);
@@ -133,7 +127,7 @@ public class GameGUI {
             }
         }
 
-        private void disableButtons() {
+        private void disableGameButtons() {
             for (int i = 0; i < 3; i++) {
                 for (int j = 0; j < 3; j++) {
                     buttons[i][j].setEnabled(false);
@@ -141,7 +135,7 @@ public class GameGUI {
             }
         }
 
-        private void restartGame() {
+        private void restartMatch() {
             controller.restartGame();
             for (int i = 0; i < 3; i++) {
                 for (int j = 0; j < 3; j++) {
@@ -151,4 +145,8 @@ public class GameGUI {
                 }
             }
         }
+
+    private void displayMessage(String message) {
+        JOptionPane.showMessageDialog(frame, message);
+    }
     }
