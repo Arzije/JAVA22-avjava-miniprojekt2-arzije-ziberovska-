@@ -5,38 +5,30 @@ import java.util.List;
 
 public class MinMaxAlgorithm {
 
-    public Move minMax(Board board, GameSymbol currentPlayer) {
-        // Check if X is a winner and return a move with score 1
+    public Move minMax(Board board, PlayerMark currentPlayer) {
         if (board.isXWinner()) {
             return new Move(1);
         }
-        // Check if O is a winner and return a move with score -1
         if (board.isOWinner()) {
             return new Move(-1);
         }
-        // Check if the board is full and return a move with score 0
         if (!board.hasEmptyCells()) {
             return new Move(0);
         }
 
-        // Evaluate all possible moves and their outcomes
         List<Move> moves = evaluateMoves(board, currentPlayer);
 
-        // Find the index of the best move
-        int bestMoveIndex = currentPlayer == GameSymbol.X ? findBestMoveForMax(moves) : findBestMoveForMin(moves);
+        int bestMoveIndex = currentPlayer == PlayerMark.X ? findBestMoveForMax(moves) : findBestMoveForMin(moves);
 
         return moves.get(bestMoveIndex);
     }
 
-    private List<Move> evaluateMoves(Board board, GameSymbol currentPlayer) {
+    private List<Move> evaluateMoves(Board board, PlayerMark currentPlayer) {
         List<Move> moves = new ArrayList<>();
 
-        // Loop through each cell in the 3x3 grid
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 3; col++) {
-                // Check if the cell is empty
                 if (board.isValidMove(row, col)) {
-                    // Evaluate the move and add to list
                     moves.add(evaluateMove(board, row, col, currentPlayer));
                 }
             }
@@ -46,23 +38,20 @@ public class MinMaxAlgorithm {
     }
 
 
-    private Move evaluateMove(Board board, int row, int col, GameSymbol currentPlayer) {
-        Move move = new Move(row, col); // Create a new move
-        Board boardCopy = board.copyBoard(); // Copy the board to simulate the move
+    private Move evaluateMove(Board board, int row, int col, PlayerMark currentPlayer) {
+        Move move = new Move(row, col);
+        Board boardCopy = board.copyBoard();
 
-        // Simulate the move
         boardCopy.placeMark(currentPlayer, row, col);
-        // Calculate the score of the move
         move.setScore(minMax(boardCopy, switchPlayer(currentPlayer)).getScore());
 
-        // Reset the board cell back to empty
         board.setEmpty(row, col);
         return move;
     }
 
 
-    private GameSymbol switchPlayer(GameSymbol currentPlayer) {
-        return (currentPlayer == GameSymbol.X) ? GameSymbol.O : GameSymbol.X;
+    private PlayerMark switchPlayer(PlayerMark currentPlayer) {
+        return (currentPlayer == PlayerMark.X) ? PlayerMark.O : PlayerMark.X;
     }
 
 
@@ -75,10 +64,9 @@ public class MinMaxAlgorithm {
     }
 
     private int findBestMove(List<Move> moves, int initialBestScore, boolean isMax) {
-        int bestMove = -1; // Initialize to an invalid index
+        int bestMove = -1;
         int bestScore = initialBestScore;
 
-        // Loop through the moves to find the best one
         for (int i = 0; i < moves.size(); i++) {
             int currentScore = moves.get(i).getScore();
 
@@ -91,7 +79,6 @@ public class MinMaxAlgorithm {
         return bestMove;
     }
 
-    // Inner class to represent a move in the TicTacToe game
     public class Move {
         private int row;
         private int col;
@@ -106,7 +93,6 @@ public class MinMaxAlgorithm {
             this.col = col;
         }
 
-        // Getter and Setter methods for the properties
         public int getRow() {
             return row;
         }

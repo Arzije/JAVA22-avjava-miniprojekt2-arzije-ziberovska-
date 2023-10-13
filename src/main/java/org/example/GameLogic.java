@@ -2,18 +2,18 @@ package org.example;
 
 public class GameLogic {
 
-    private Board board; // The game board
-    private MinMaxAlgorithm ai; // The AI component for providing hints or AI moves
-    private GameSymbol currentPlayer; // Represents the current player's symbol ('X' or 'O')
+    private Board board;
+    private MinMaxAlgorithm aiPlayer;
+    private PlayerMark currentPlayer;
 
     public GameLogic() {
         this.board = new Board();
-        this.ai = new MinMaxAlgorithm();
-        this.currentPlayer = GameSymbol.X;
+        this.aiPlayer = new MinMaxAlgorithm();
+        this.currentPlayer = PlayerMark.X;
     }
 
     public MinMaxAlgorithm.Move provideHint() {
-        return ai.minMax(board, currentPlayer);
+        return aiPlayer.minMax(board, currentPlayer);
     }
 
 
@@ -29,7 +29,7 @@ public class GameLogic {
     }
 
     public void switchPlayer() {
-        currentPlayer = (currentPlayer == GameSymbol.X) ? GameSymbol.O : GameSymbol.X;
+        currentPlayer = (currentPlayer == PlayerMark.X) ? PlayerMark.O : PlayerMark.X;
     }
 
     public boolean isWinner() {
@@ -42,18 +42,18 @@ public class GameLogic {
 
     public void restartGame() {
         board = new Board();
-        currentPlayer = GameSymbol.X;
+        currentPlayer = PlayerMark.X;
     }
 
-    public String getBoardCellSymbol(int row, int col) {
+    public String getBoardCellMark(int row, int col) {
         return board.getBoardCell(row, col).getSymbol();
     }
 
     public MinMaxAlgorithm.Move aiMove() {
-        return ai.minMax(board, currentPlayer);
+        return aiPlayer.minMax(board, currentPlayer);
     }
 
-    public GameSymbol getCurrentPlayer() {
+    public PlayerMark getCurrentPlayer() {
         return currentPlayer;
     }
 }

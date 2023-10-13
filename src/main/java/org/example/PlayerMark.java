@@ -1,11 +1,11 @@
 package org.example;
 
-public enum GameSymbol {
-    X("X"), O("O"), EMPTY("-");
+public enum PlayerMark {
+    X("X"), O("O"), EMPTY(" ");
 
     private final String symbol;
 
-    GameSymbol(String symbol) {
+    PlayerMark(String symbol) {
         this.symbol = symbol;
     }
 
