@@ -1,4 +1,8 @@
-package org.example;
+package org.example.logic;
+
+import org.example.model.Board;
+import org.example.model.Move;
+import org.example.model.PlayerMark;
 
 public class GameLogic {
 

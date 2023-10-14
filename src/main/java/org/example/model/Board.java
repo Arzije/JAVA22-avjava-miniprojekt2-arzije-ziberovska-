@@ -1,4 +1,6 @@
-package org.example;
+package org.example.model;
+
+import org.example.operations.BoardOperations;
 
 public class Board implements BoardOperations {
 

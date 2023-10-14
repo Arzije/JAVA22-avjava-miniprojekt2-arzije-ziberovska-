@@ -1,6 +1,11 @@
-package org.example;
+package org.example.logic;
 
-    public class DecisionEngine {
+import org.example.strategy.DecisionStrategy;
+import org.example.model.Board;
+import org.example.model.Move;
+import org.example.model.PlayerMark;
+
+public class DecisionEngine {
 
         private DecisionStrategy strategy;
 

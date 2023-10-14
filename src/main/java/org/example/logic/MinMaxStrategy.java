@@ -1,9 +1,14 @@
-package org.example;
+package org.example.logic;
+
+import org.example.strategy.DecisionStrategy;
+import org.example.model.Board;
+import org.example.model.Move;
+import org.example.model.PlayerMark;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MinMaxStrategy implements DecisionStrategy{
+public class MinMaxStrategy implements DecisionStrategy {
 
     @Override
     public Move evaluateBestMove(Board board, PlayerMark currentPlayer) {

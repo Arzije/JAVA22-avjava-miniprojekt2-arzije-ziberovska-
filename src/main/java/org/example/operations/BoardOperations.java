@@ -1,4 +1,7 @@
-package org.example;
+package org.example.operations;
+
+import org.example.model.Board;
+import org.example.model.PlayerMark;
 
 public interface BoardOperations {
 

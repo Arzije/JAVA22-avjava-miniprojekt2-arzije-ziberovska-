@@ -1,4 +1,6 @@
-package org.example;
+package org.example.Main;
+
+import org.example.ui.GameGUI;
 
 import javax.swing.*;
 
