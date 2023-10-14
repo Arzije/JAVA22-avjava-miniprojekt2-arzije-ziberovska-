@@ -3,9 +3,10 @@ package org.example;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MinMaxAlgorithm {
+public class MinMaxStrategy implements DecisionStrategy{
 
-    public Move minMax(Board board, PlayerMark currentPlayer) {
+    @Override
+    public Move evaluateBestMove(Board board, PlayerMark currentPlayer) {
         if (board.isXWinner()) {
             return new Move(1);
         }
@@ -43,7 +44,7 @@ public class MinMaxAlgorithm {
         Board boardCopy = board.copyBoard();
 
         boardCopy.placeMark(currentPlayer, row, col);
-        move.setScore(minMax(boardCopy, switchPlayer(currentPlayer)).getScore());
+        move.setScore(evaluateBestMove(boardCopy, switchPlayer(currentPlayer)).getScore());
 
         board.setEmpty(row, col);
         return move;
@@ -78,44 +79,4 @@ public class MinMaxAlgorithm {
 
         return bestMove;
     }
-
-    public class Move {
-        private int row;
-        private int col;
-        private int score;
-
-        public Move(int score) {
-            this.score = score;
-        }
-
-        public Move(int row, int col) {
-            this.row = row;
-            this.col = col;
-        }
-
-        public int getRow() {
-            return row;
-        }
-
-        public void setRow(int row) {
-            this.row = row;
-        }
-
-        public int getCol() {
-            return col;
-        }
-
-        public void setCol(int col) {
-            this.col = col;
-        }
-
-        public int getScore() {
-            return score;
-        }
-
-        public void setScore(int score) {
-            this.score = score;
-        }
-    }
-
 }

@@ -3,19 +3,18 @@ package org.example;
 public class GameLogic {
 
     private Board board;
-    private MinMaxAlgorithm aiPlayer;
+    private DecisionEngine decisionEngine;
     private PlayerMark currentPlayer;
 
     public GameLogic() {
         this.board = new Board();
-        this.aiPlayer = new MinMaxAlgorithm();
+        this.decisionEngine = new DecisionEngine();
         this.currentPlayer = PlayerMark.X;
     }
 
-    public MinMaxAlgorithm.Move provideHint() {
-        return aiPlayer.minMax(board, currentPlayer);
+    public Move provideHint() {
+        return decisionEngine.determineBestMove(board, currentPlayer);
     }
-
 
     public boolean isValidMove(int row, int col) {
         return board.isValidMove(row, col);
@@ -49,8 +48,8 @@ public class GameLogic {
         return board.getBoardCell(row, col).getSymbol();
     }
 
-    public MinMaxAlgorithm.Move aiMove() {
-        return aiPlayer.minMax(board, currentPlayer);
+    public Move aiMove() {
+        return decisionEngine.determineBestMove(board, currentPlayer);
     }
 
     public PlayerMark getCurrentPlayer() {

@@ -70,7 +70,7 @@ public class GameGUI {
         }
 
         private void showHint() {
-            MinMaxAlgorithm.Move bestMove = controller.provideHint();
+            Move bestMove = controller.provideHint();
             int bestRow = bestMove.getRow();
             int bestCol = bestMove.getCol();
             buttons[bestRow][bestCol].setBackground(Color.gray);
@@ -105,7 +105,7 @@ public class GameGUI {
                 }
             }
             private void processAIMove() {
-                MinMaxAlgorithm.Move bestMove = controller.aiMove();
+                Move bestMove = controller.aiMove();
                 controller.makeMove(bestMove.getRow(), bestMove.getCol());
                 updateGameBoard();
                 if (controller.isWinner()) {
