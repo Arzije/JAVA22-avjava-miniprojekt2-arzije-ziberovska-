@@ -5,13 +5,14 @@ public class Move {
         private int col;
         private int score;
 
-        public Move(int score) {
-            this.score = score;
-        }
+//        public Move(int score) {
+//            this.score = score;
+//        }
 
-        public Move(int row, int col) {
+        public Move(int row, int col, int score) {
             this.row = row;
             this.col = col;
+            this.score = score;
         }
 
         public int getRow() {

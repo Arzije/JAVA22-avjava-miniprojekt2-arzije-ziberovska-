@@ -2,9 +2,14 @@ package org.example.model;
 
 import org.example.operations.BoardOperations;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Board implements BoardOperations {
 
     private PlayerMark[][] board = new PlayerMark[3][3];
+    private int lastPlacedRow = -1;
+    private int lastPlacedCol = -1;
 
     public Board() {
         for (int i = 0; i < 3; i++) {
@@ -31,13 +36,24 @@ public class Board implements BoardOperations {
     public void placeMark(PlayerMark mark, int row, int col) {
         if (isValidMove(row, col)) {
             board[row][col] = mark;
+            lastPlacedRow = row;
+            lastPlacedCol = col;
         }
+    }
+
+    public int getLastPlacedRow() {
+        return lastPlacedRow;
+    }
+
+    public int getLastPlacedCol() {
+        return lastPlacedCol;
     }
 
     @Override
     public boolean isWinner() {
         return isXWinner() || isOWinner();
     }
+
 
     @Override
     public boolean isDraw() {
@@ -117,6 +133,22 @@ public class Board implements BoardOperations {
         } else {
             throw new IllegalArgumentException("Row and column indices must be between 0 and 2, inclusive.");
         }
+    }
+
+    public List<Board> generateChildBoards(PlayerMark currentPlayer) {
+        List<Board> childBoards = new ArrayList<>();
+
+        for (int row = 0; row < 3; row++) {
+            for (int col = 0; col < 3; col++) {
+                if (isValidMove(row, col)) {
+                    Board childBoard = this.copyBoard();
+                    childBoard.placeMark(currentPlayer, row, col);
+                    childBoards.add(childBoard);
+                }
+            }
+        }
+
+        return childBoards;
     }
 
 

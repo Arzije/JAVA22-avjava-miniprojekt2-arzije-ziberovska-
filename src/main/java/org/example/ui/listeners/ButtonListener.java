@@ -24,7 +24,7 @@ public class ButtonListener implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         processPlayerMove();
         if (!gameLogic.isWinner() && !gameLogic.isDraw()) {
-            processAIMove();
+            processComputerMove();
         }
     }
 
@@ -40,7 +40,7 @@ public class ButtonListener implements ActionListener {
         }
     }
 
-    private void processAIMove() {
+    private void processComputerMove() {
         Move bestMove = gameLogic.aiMove();
         gameLogic.makeMove(bestMove.getRow(), bestMove.getCol());
         gameGUI.updateGameBoard();
