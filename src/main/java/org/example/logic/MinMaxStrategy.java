@@ -21,6 +21,8 @@ public class MinMaxStrategy implements DecisionStrategy {
     }
 
     private Move minMax(Board board, int depth, PlayerMark currentPlayer) {
+
+        //base case
         if (board.isXWinner()) {
             return new Move(board.getLastPlacedRow(), board.getLastPlacedCol(), 10 - depth);
         }
