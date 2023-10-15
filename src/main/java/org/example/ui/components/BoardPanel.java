@@ -8,9 +8,18 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
+/**
+ * Represents the main game board UI component.
+ */
 public class BoardPanel extends JPanel {
     private JButton[][] buttons;
 
+    /**
+     * Constructs the game board with buttons.
+     *
+     * @param gameLogic The game logic instance.
+     * @param gameGUI   The main game GUI instance.
+     */
     public BoardPanel(GameLogic gameLogic, GameGUI gameGUI) {
         setLayout(new GridLayout(3, 3, 10, 10));
         buttons = new JButton[3][3];
@@ -22,19 +31,27 @@ public class BoardPanel extends JPanel {
         }
     }
 
+    /**
+     * Updates the text of a specific button on the board.
+     *
+     * @param row   The row index of the button.
+     * @param col   The column index of the button.
+     * @param text  The text to set on the button.
+     */
     public void updateButton(int row, int col, String text) {
         buttons[row][col].setText(text);
         buttons[row][col].setBackground(null);
     }
 
+    /**
+     * Highlights a specific button on the board for hints.
+     *
+     * @param row The row index of the button.
+     * @param col The column index of the button.
+     */
     public void highlightButton(int row, int col) {
         buttons[row][col].setBackground(Color.gray);
     }
 
-//    public void resetButton(int row, int col) {
-//        buttons[row][col].setEnabled(true);
-//        buttons[row][col].setText(" ");
-//        buttons[row][col].setBackground(null);
-//    }
 
 }

@@ -3,9 +3,10 @@ package org.example.operations;
 import org.example.model.Board;
 import org.example.model.PlayerMark;
 
+/**
+ * Interface defining operations that can be performed on a Tic Tac Toe board.
+ */
 public interface BoardOperations {
-
-//    void setEmpty(int row, int col);
 
     boolean isValidMove(int row, int col);
 
@@ -14,8 +15,6 @@ public interface BoardOperations {
     Board copyBoard();
 
     boolean hasEmptyCells();
-
-//    void printBoard();
 
     PlayerMark getBoardCell(int row, int col);
 
