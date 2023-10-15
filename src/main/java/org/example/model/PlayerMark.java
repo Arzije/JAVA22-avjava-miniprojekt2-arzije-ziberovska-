@@ -3,13 +3,13 @@ package org.example.model;
 public enum PlayerMark {
     X("X"), O("O"), EMPTY(" ");
 
-    private final String symbol;
+    private final String mark;
 
-    PlayerMark(String symbol) {
-        this.symbol = symbol;
+    PlayerMark(String mark) {
+        this.mark = mark;
     }
 
-    public String getSymbol() {
-        return symbol;
+    public String getMark() {
+        return mark;
     }
 }

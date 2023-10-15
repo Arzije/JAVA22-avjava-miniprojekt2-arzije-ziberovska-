@@ -5,7 +5,7 @@ import org.example.model.PlayerMark;
 
 public interface BoardOperations {
 
-    void setEmpty(int row, int col);
+//    void setEmpty(int row, int col);
 
     boolean isValidMove(int row, int col);
 

@@ -49,10 +49,10 @@ public class GameLogic {
     }
 
     public String getBoardCellMark(int row, int col) {
-        return board.getBoardCell(row, col).getSymbol();
+        return board.getBoardCell(row, col).getMark();
     }
 
-    public Move aiMove() {
+    public Move computerMove() {
         return decisionEngine.determineBestMove(board, currentPlayer);
     }
 

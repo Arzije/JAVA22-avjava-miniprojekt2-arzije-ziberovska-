@@ -19,12 +19,12 @@ public class Board implements BoardOperations {
         }
     }
 
-    @Override
-    public void setEmpty(int row, int col) {
-        if (row >= 0 && row < 3 && col >= 0 && col < 3) {
-            board[row][col] = PlayerMark.EMPTY;
-        }
-    }
+//    @Override
+//    public void setEmpty(int row, int col) {
+//        if (row >= 0 && row < 3 && col >= 0 && col < 3) {
+//            board[row][col] = PlayerMark.EMPTY;
+//        }
+//    }
 
     @Override
     public boolean isValidMove(int row, int col) {
