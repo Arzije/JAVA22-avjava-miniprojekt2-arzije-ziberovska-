@@ -22,14 +22,6 @@ public class GameLogic {
     }
 
     /**
-     * Provides a hint by determining the best move.
-     * @return The best move for the current player.
-     */
-    public Move provideHint() {
-        return decisionEngine.determineBestMove(board, currentPlayer);
-    }
-
-    /**
      * Checks if a move is valid.
      * @param row The row of the move.
      * @param col The column of the move.
@@ -90,4 +82,13 @@ public class GameLogic {
     public PlayerMark getCurrentPlayer() {
         return currentPlayer;
     }
+
+    /**
+     * Provides a hint by determining the best move.
+     * @return The best move for the current player.
+     */
+    public Move provideHint() {
+        return decisionEngine.determineBestMove(board, currentPlayer);
+    }
+
 }

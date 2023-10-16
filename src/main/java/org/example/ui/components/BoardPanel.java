@@ -21,7 +21,8 @@ public class BoardPanel extends JPanel {
      * @param gameGUI   The main game GUI instance.
      */
     public BoardPanel(GameLogic gameLogic, GameGUI gameGUI) {
-        setLayout(new GridLayout(3, 3, 10, 10));
+        setBackground(new Color(58, 64, 82));
+        setLayout(new GridLayout(3, 3, 20, 20));
         buttons = new JButton[3][3];
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {

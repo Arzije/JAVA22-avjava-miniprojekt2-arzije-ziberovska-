@@ -31,8 +31,9 @@ public class GameGUI {
     private void setupMainFrame() {
         frame = new JFrame("Tic Tac Toe");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(500, 550);
+        frame.setSize(600, 650);
         frame.setLayout(new BorderLayout());
+        frame.getContentPane().setBackground(new Color(58, 64, 82));
     }
 
     private void setupGameController() {
@@ -55,14 +56,20 @@ public class GameGUI {
             gameLogic.restartGame();
             updateGameBoard();
         });
-        frame.add(restartButton, BorderLayout.NORTH);
+        Box northBox = Box.createHorizontalBox();
+        northBox.add(Box.createHorizontalGlue());
+        northBox.add(restartButton);
+        northBox.add(Box.createHorizontalGlue());
+        frame.add(northBox, BorderLayout.NORTH);
     }
 
     private void setupHelpButton() {
         JButton hintButton = ButtonFactory.generateStandardButton("I would like a hint!", e -> showHint());
-        JPanel hintPanel = new JPanel();
-        hintPanel.add(hintButton);
-        frame.add(hintPanel, BorderLayout.SOUTH);
+        Box southBox = Box.createHorizontalBox();
+        southBox.add(Box.createHorizontalGlue());
+        southBox.add(hintButton);
+        southBox.add(Box.createHorizontalGlue());
+        frame.add(southBox, BorderLayout.SOUTH);
     }
 
     private void showHint() {

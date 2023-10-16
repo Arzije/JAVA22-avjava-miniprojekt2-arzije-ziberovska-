@@ -80,37 +80,6 @@ public class Board implements BoardOperations {
     }
 
     /**
-     * Checks if the given player mark has a winning combination on the board.
-     *
-     * @param mark The player mark to check (X or O).
-     * @return true if the given player mark has a winning combination, otherwise false.
-     */
-    private boolean checkWinner(PlayerMark mark) {
-        // Check all rows
-        for (int i = 0; i < 3; i++) {
-            if (board[i][0] == mark && board[i][1] == mark && board[i][2] == mark)
-                return true;
-        }
-
-        // Check all columns
-        for (int i = 0; i < 3; i++) {
-            if (board[0][i] == mark && board[1][i] == mark && board[2][i] == mark)
-                return true;
-        }
-
-        // Check main diagonal
-        if (board[0][0] == mark && board[1][1] == mark && board[2][2] == mark)
-            return true;
-
-        // Check secondary diagonal
-        if (board[0][2] == mark && board[1][1] == mark && board[2][0] == mark)
-            return true;
-
-        // No winning combination found
-        return false;
-    }
-
-    /**
      * Creates a copy of the current board.
      */
     @Override
@@ -150,6 +119,38 @@ public class Board implements BoardOperations {
             throw new IllegalArgumentException("Row and column indices must be between 0 and 2, inclusive.");
         }
     }
+
+    /**
+     * Checks if the given player mark has a winning combination on the board.
+     *
+     * @param mark The player mark to check (X or O).
+     * @return true if the given player mark has a winning combination, otherwise false.
+     */
+    private boolean checkWinner(PlayerMark mark) {
+        // Check all rows
+        for (int i = 0; i < 3; i++) {
+            if (board[i][0] == mark && board[i][1] == mark && board[i][2] == mark)
+                return true;
+        }
+
+        // Check all columns
+        for (int i = 0; i < 3; i++) {
+            if (board[0][i] == mark && board[1][i] == mark && board[2][i] == mark)
+                return true;
+        }
+
+        // Check main diagonal
+        if (board[0][0] == mark && board[1][1] == mark && board[2][2] == mark)
+            return true;
+
+        // Check secondary diagonal
+        if (board[0][2] == mark && board[1][1] == mark && board[2][0] == mark)
+            return true;
+
+        // No winning combination found
+        return false;
+    }
+
 
     /**
      * Generates all possible child boards based on the current board state.
